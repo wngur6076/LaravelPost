@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', IndexController::class);
+Route::get('/auth/login', [AuthController::class, 'ShowLoginForm']);
