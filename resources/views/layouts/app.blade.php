@@ -19,12 +19,12 @@
                 <ul class="uk-navbar-nav">
                     <li><a href="/">Home</a></li>
                     <li><a href="/users/register">Register</a></li>
-                    {{-- <?php if (array_key_exists('user', $_SESSION)) : ?> --}}
-                    <li><a href="/posts/write">Write</a></li>
-                    <li><a href="#" id="logout">Sign Out</a></li>
-                    {{-- <?php else : ?> --}}
-                    <li><a href="/auth/login">Sign in</a></li>
-                    {{-- <?php endif; ?> --}}
+                    @if (Auth::check())
+                        <li><a href="/posts/write">Write</a></li>
+                        <li><a href="/auth/logout" id="logout">Sign Out</a></li>
+                    @else
+                        <li><a href="/auth/login">Sign in</a></li>
+                    @endif
                 </ul>
             </div>
         </nav>
