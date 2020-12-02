@@ -19,12 +19,12 @@
                 <ul class="uk-navbar-nav">
                     <li><a href="/">Home</a></li>
                     <li><a href="/users/register">Register</a></li>
-                    @if (Auth::check())
+                    @auth
                         <li><a href="/posts/write">Write</a></li>
                         <li><a href="/auth/logout" id="logout">Sign Out</a></li>
                     @else
                         <li><a href="/auth/login">Sign in</a></li>
-                    @endif
+                    @endauth
                 </ul>
             </div>
         </nav>
