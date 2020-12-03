@@ -77,7 +77,15 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($post = Post::find($id)) {
+            $post->title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $post->content = filter_input(INPUT_POST, 'content');
+
+            return ($post->isOwner() && $post->update())
+                ? redirect('/posts/' . $post->id)
+                : redirect()->back();
+        }
+        return response('에러발생!', 404);
     }
 
     /**
