@@ -6,7 +6,6 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use PharIo\Manifest\Author;
-use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -30,7 +29,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        return User::find(Auth::id())->posts()->create(request()->only(['title', 'content']))
+        return User::find(auth()->user()->id)->posts()->create(request()->only(['title', 'content']))
             ? redirect('/') : redirect()->back();
     }
 
@@ -42,7 +41,11 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        if ($post = Post::find($id))
+            return view('read')->with([
+                'post' => $post
+            ]);
+        return response('에러발생!', 200);
     }
 
     /**
@@ -76,6 +79,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if ($post = Post::find($id)) {
+            if ($post->isOwner() && $post->delete())
+                return response(204);
+        }
+        return response('에러발생!', 404);
     }
 }

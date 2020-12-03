@@ -20,6 +20,14 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function isOwner()
+    {
+        if (auth()->check()) {
+            return $this->user_id === auth()->user()->id;
+        }
+        return false;
+    }
+
     public function getUsername()
     {
         return current(explode('@', $this->user()->value('email')));

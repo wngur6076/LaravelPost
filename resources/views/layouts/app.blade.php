@@ -20,7 +20,7 @@
                     <li><a href="/">Home</a></li>
                     <li><a href="/users/register">Register</a></li>
                     @auth
-                        <li><a href="/posts/write">Write</a></li>
+                        <li><a href="/posts/create">Write</a></li>
                         <li><a href="/auth/logout" id="logout">Sign Out</a></li>
                     @else
                         <li><a href="/auth/login">Sign in</a></li>
