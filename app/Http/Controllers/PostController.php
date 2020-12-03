@@ -29,7 +29,9 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        return User::find(auth()->user()->id)->posts()->create(request()->only(['title', 'content']))
+        $post = request()->only(['title', 'content']);
+
+        return User::find(auth()->user()->id)->posts()->create($post)
             ? redirect('/') : redirect()->back();
     }
 
@@ -56,7 +58,14 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        if ($post = Post::find($id)) {
+            return view('post')->with([
+                'post' => $post,
+                'requestUrl' => '/posts/' . $post->id,
+                'method' => 'patch'
+            ]);
+        }
+        return response('에러발생!', 404);
     }
 
     /**
@@ -81,7 +90,7 @@ class PostController extends Controller
     {
         if ($post = Post::find($id)) {
             if ($post->isOwner() && $post->delete())
-                return response(204);
+                return http_response_code(204);
         }
         return response('에러발생!', 404);
     }

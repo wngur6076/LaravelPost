@@ -16,7 +16,7 @@
                     </span>
                 @endif
             </div>
-            <div class="uk-text-lead uk-margin-bottom">{{ $post->content }}</div>
+            <div class="uk-text-lead uk-margin-bottom">{{ $post->getSummary() }}</div>
         </article>
     </div>
 
