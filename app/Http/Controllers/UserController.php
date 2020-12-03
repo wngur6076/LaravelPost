@@ -16,9 +16,10 @@ class UserController extends Controller
 
     public function store()
     {
-        $input = request()->only(['email', 'password']);
-        $input['password'] = bcrypt($input['password']);
-        return User::create($input) ? redirect('/auth/login')
+        $user = request()->only(['email', 'password']);
+        $user['password'] = bcrypt($user['password']);
+
+        return User::create($user) ? redirect('/auth/login')
             : redirect()->back();
     }
 }

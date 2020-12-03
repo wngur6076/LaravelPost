@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,6 @@ Route::get('/auth/logout', [ AuthController::class, 'logout' ]);
 
 Route::get('/users/register', [ UserController::class, 'create' ]);
 Route::post('/users', [ UserController::class, 'store' ]);
+
+Route::get('/posts/write', [ PostController::class, 'create' ]);
+Route::post('/posts', [ PostController::class, 'store' ]);
